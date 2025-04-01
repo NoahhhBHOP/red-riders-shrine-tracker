@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Rider's Shrine Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <canvas id="backgroundCanvas"></canvas>
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo-text">
+                <h1>Red Rider's</h1>
+                <h2>Shrine Tracker</h2>
+            </div>
+        </div>
+    </div>
+    <div class="divider"></div>
+    <div class="container">
+        <div class="shrinebox" id="shrineContainer">
+            <!-- Shrine entries will be dynamically populated here -->
+        </div>
+    </div>
+
+    <!-- Shrine entry template -->
+    <template id="shrineTemplate">
+        <div class="shrineinfo">
+            <img src="" alt="Server Image" class="server-image">
+            <div class="shrineserverrealm">
+                <div class="server"></div>
+                <div class="realm"></div>
+            </div>
+            <div class="shrineplayerstime">
+                <div class="players"></div>
+                <div class="time"></div>
+            </div>     
+        </div>
+    </template>
+
+    <script src="background.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
