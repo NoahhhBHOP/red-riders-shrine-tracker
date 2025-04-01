@@ -1,1 +1,1 @@
-# red-riders-shrine-tracker
+# https://noahhhbhop.github.io/red-riders-shrine-tracker/
