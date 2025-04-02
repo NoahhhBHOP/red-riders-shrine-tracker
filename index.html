@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,14 @@
 <body>
     <canvas id="backgroundCanvas"></canvas>
     <div class="header">
+        <img src="images/umi.png" alt="Umi" class="umi-logo">
+        <div class="theme-toggle">
+            <label>Theme</label>
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
         <div class="logo-container">
             <div class="logo-text">
                 <h1>Red Rider's</h1>
@@ -42,6 +50,7 @@
     </template>
 
     <script src="background.js"></script>
+    <script src="theme.js"></script>
     <script src="script.js"></script>
 </body>
 </html> 

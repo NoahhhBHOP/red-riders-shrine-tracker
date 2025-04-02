@@ -9,22 +9,33 @@ class Particle {
         this.distance = 100;
         this.alpha = Math.random() * 0.5 + 0.3;
         this.speed = Math.random() * 0.5;
+        this.directionX = (Math.random() - 0.5) * 0.2;
+        this.directionY = (Math.random() - 0.5) * 0.2;
     }
 
     draw(ctx) {
         ctx.shadowBlur = 15;
-        ctx.shadowColor = 'rgba(255, 215, 0, 0.5)';
+        ctx.shadowColor = 'rgba(255, 51, 51, 0.5)';
         
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.closePath();
-        ctx.fillStyle = `rgba(255, 215, 0, ${this.alpha})`;
+        ctx.fillStyle = `rgba(255, 51, 51, ${this.alpha})`;
         ctx.fill();
         
         ctx.shadowBlur = 0;
     }
 
     update(mouse) {
+        // Constant movement
+        this.x += this.directionX;
+        this.y += this.directionY;
+
+        // Bounce off edges
+        if (this.x < 0 || this.x > window.innerWidth) this.directionX *= -1;
+        if (this.y < 0 || this.y > window.innerHeight) this.directionY *= -1;
+
+        // Mouse interaction
         let dx = mouse.x - this.x;
         let dy = mouse.y - this.y;
         let distance = Math.sqrt(dx * dx + dy * dy);
@@ -43,18 +54,8 @@ class Particle {
             this.y += directionY;
             this.alpha = Math.min(0.8, this.alpha + 0.1);
         } else {
-            if (this.x !== this.baseX) {
-                let dx = this.x - this.baseX;
-                this.x -= dx/20;
-            }
-            if (this.y !== this.baseY) {
-                let dy = this.y - this.baseY;
-                this.y -= dy/20;
-            }
             this.alpha = Math.max(0.3, this.alpha - 0.02);
         }
-
-        this.y += Math.sin(Date.now() * 0.001 * this.speed) * 0.2;
     }
 }
 

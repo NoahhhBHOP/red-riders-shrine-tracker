@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const realm = parts[1];
                 const server = parts[2];
                 const players = parts[3];
+                const realmPercent = parts[5]; // Get the realm percentage from parts[5]
                 const timestamp = parts[6];
 
                 // Convert timestamp to datetime
@@ -137,6 +138,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     shrineEvents.push({
                         server,
                         realm,
+                        realmPercent, // Use the percentage directly from API
                         players: `${players}/85`,
                         time_ago: timeDiff,
                         image: SERVER_IMAGES[server] || "default_server.jpg"
@@ -157,6 +159,23 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error fetching shrine data:', error);
             return null;
         }
+    }
+
+    function createCopyNotification(element) {
+        const notification = document.createElement('div');
+        notification.className = 'copy-notification';
+        notification.textContent = 'Copied!';
+        element.appendChild(notification);
+        
+        // Trigger animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 0);
+        
+        // Remove notification after animation
+        setTimeout(() => {
+            element.removeChild(notification);
+        }, 1500);
     }
 
     function updateShrines() {
@@ -187,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     
                     // Update server and realm
                     clone.querySelector('.server').textContent = shrine.server;
-                    clone.querySelector('.realm').textContent = shrine.realm;
+                    clone.querySelector('.realm').textContent = `${shrine.realm} (${shrine.realmPercent}%)`;
                     
                     // Update players and time
                     clone.querySelector('.players').textContent = shrine.players;
@@ -199,6 +218,35 @@ document.addEventListener('DOMContentLoaded', function() {
                         element: timeElement,
                         seconds: shrine.time_ago
                     });
+                    
+                    const shrineElement = clone.querySelector('.shrineinfo');
+                    
+                    // Create copy button with Umi logo
+                    const copyButton = document.createElement('button');
+                    copyButton.className = 'copy-button';
+                    const umiLogo = document.createElement('img');
+                    umiLogo.src = 'images/umi.png';
+                    umiLogo.alt = 'Copy';
+                    copyButton.appendChild(umiLogo);
+                    
+                    // Add click handler to the copy button
+                    copyButton.addEventListener('click', async (e) => {
+                        e.stopPropagation(); // Prevent event bubbling
+                        const copyText = `<@&1237081666820902932> Shrine at ${shrine.server} ${shrine.realm} - Party is "Umi Enjoyers"`;
+                        try {
+                            await navigator.clipboard.writeText(copyText);
+                            const img = copyButton.querySelector('img');
+                            img.classList.add('spinning');
+                            setTimeout(() => {
+                                img.classList.remove('spinning');
+                            }, 1000);
+                        } catch (err) {
+                            console.error('Failed to copy text:', err);
+                        }
+                    });
+                    
+                    // Add the copy button to the shrine element
+                    shrineElement.appendChild(copyButton);
                     
                     shrineContainer.appendChild(clone);
                 });
