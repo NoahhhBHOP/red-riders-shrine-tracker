@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Add click handler to the copy button
                     copyButton.addEventListener('click', async (e) => {
                         e.stopPropagation(); // Prevent event bubbling
-                        const copyText = `<@&1237081666820902932> Shrine at ${shrine.server} ${shrine.realm} - Party is "Umi Enjoyers"`;
+                        const copyText = `/rotmg-announce raid:Moonlight Village location:${shrine.server} ${shrine.realm} party:Umi Enjoyers`;
                         try {
                             await navigator.clipboard.writeText(copyText);
                             const img = copyButton.querySelector('img');
